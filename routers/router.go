@@ -8,22 +8,14 @@
 package routers
 
 import (
-	"github.com/nodar-chkuaselidze/bee-api-test/controllers"
-
 	"github.com/astaxie/beego"
+	"github.com/nodar-chkuaselidze/bee-api-test/controllers"
 )
 
 func init() {
 	ns := beego.NewNamespace("/v1",
-		beego.NSNamespace("/object",
-			beego.NSInclude(
-				&controllers.ObjectController{},
-			),
-		),
-		beego.NSNamespace("/user",
-			beego.NSInclude(
-				&controllers.UserController{},
-			),
+		beego.NSNamespace("/patient",
+			beego.NSRouter("/:id", &controllers.PatientController{}, "get:Get"),
 		),
 	)
 	beego.AddNamespace(ns)
