@@ -26,7 +26,7 @@ func (p *PatientController) Get() {
 		p.Abort("400")
 	}
 
-	p.Data["json"], err = models.GetPatient(requestId)
+	p.Data["json"], err = models.GetPatientWithConsultations(requestId, 10)
 
 	if err != nil {
 		p.Abort("404")
