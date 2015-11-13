@@ -11,7 +11,7 @@ type Consultation struct {
 	Name             string
 	PainSite         string
 	PainNote         string
-	Age              int8
+	Age              uint8
 	Location         string
 	ExaminationNotes string
 	Date             time.Time

@@ -20,11 +20,11 @@ type Patient struct {
 	Color         string
 	Url           string
 	Blog          string
-	Height        int8
-	Weight        int8
+	Height        uint8
+	Weight        uint8
 	Email         string
-	Frequence     int32
-	Money         int64
+	Frequence     uint32
+	Money         uint64
 	Phone         string
 	Consultations []*Consultation `orm:"reverse(many)"`
 }
@@ -48,6 +48,27 @@ func GetPatient(id int) (*Patient, error) {
 	}
 
 	beego.Trace(patient)
+
+	return patient, nil
+}
+
+func GetPatientWithConsultations(id, consultations int) (*Patient, error) {
+	o := orm.NewOrm()
+	o.Using("default")
+
+	patient, err := GetPatient(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	num, err := o.LoadRelated(patient, "Consultations")
+
+	if err != nil {
+		return nil, err
+	}
+
+	beego.Debug("Loaded consultations: %d", num)
 
 	return patient, nil
 }
